@@ -19,19 +19,42 @@ public class Main {
                 Integer[] listSection2 = replaceBySuite(section2);
 
 
-                if (isIncluding(listSection1[0], listSection2[0], listSection1[listSection1.length-1], listSection2[listSection2.length-1])){
+                if (isIncluding(listSection1[0], listSection2[0], listSection1[listSection1.length-1], listSection2[listSection2.length-1]) || isIncluding(listSection2[0], listSection1[0], listSection2[listSection2.length-1], listSection1[listSection1.length-1]) ){
                     score += 1;
-                    System.out.println("true");
-                } else {
-                    System.out.println("false");
+                    System.out.println(line);
                 }
-
-                //System.out.println(listSection1. + " , " + listSection2.toString());
-
                 line = br.readLine();
             }
 
             System.out.println(score);
+
+            /** --------------------------------------------------------------------------------------------- */
+
+            System.out.println("Part two !");
+
+            br = new BufferedReader(new FileReader(args[0]));
+            line = br.readLine();
+
+            score = 0;
+
+            while (line != null) {
+                String section1 = line.split(",")[0];
+                String section2 = line.split(",")[1];
+
+                Integer[] listSection1 = replaceBySuite(section1);
+                Integer[] listSection2 = replaceBySuite(section2);
+
+
+                if (isIncluding2(listSection1, listSection2)){
+                    score += 1;
+                    System.out.println(line);
+                }
+                line = br.readLine();
+            }
+
+            System.out.println(score);
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -52,8 +75,6 @@ public class Main {
             ret[n] = i;
             n++;
         }
-
-
         return ret;
     }
 
@@ -65,4 +86,18 @@ public class Main {
             return false;
         }
     }
+
+    public static  boolean isIncluding2(Integer[] suite1, Integer[] suite2){
+        for (Integer int1 : suite1){
+            for (Integer int2 : suite2){
+                if (int1 == int2){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+
 }
